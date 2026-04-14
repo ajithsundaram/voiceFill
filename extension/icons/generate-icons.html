@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!--
+  Open this file in a browser, then right-click each canvas and
+  "Save image as" → icon16.png / icon48.png / icon128.png
+-->
+<html>
+<body style="display:flex;gap:24px;padding:24px;background:#fff;align-items:flex-end">
+<script>
+function makeIcon(size) {
+  const canvas = document.createElement("canvas");
+  canvas.width = size;
+  canvas.height = size;
+  canvas.title = `icon${size}.png`;
+  canvas.style.border = "1px solid #eee";
+  canvas.style.cursor = "pointer";
+  canvas.title = `Right-click → Save as icon${size}.png`;
+
+  const ctx = canvas.getContext("2d");
+  const r = size / 2;
+
+  // Background circle
+  ctx.beginPath();
+  ctx.arc(r, r, r, 0, Math.PI * 2);
+  ctx.fillStyle = "#4f46e5";
+  ctx.fill();
+
+  // Mic body
+  const mw = size * 0.22;
+  const mh = size * 0.34;
+  const mx = r - mw / 2;
+  const my = size * 0.18;
+  const cr = mw / 2;
+
+  ctx.beginPath();
+  ctx.roundRect(mx, my, mw, mh, cr);
+  ctx.fillStyle = "#ffffff";
+  ctx.fill();
+
+  // Mic stand arc
+  const arcR = size * 0.22;
+  ctx.beginPath();
+  ctx.arc(r, size * 0.50, arcR, Math.PI, 0, false);
+  ctx.strokeStyle = "#ffffff";
+  ctx.lineWidth = size * 0.07;
+  ctx.lineCap = "round";
+  ctx.stroke();
+
+  // Stem
+  ctx.beginPath();
+  ctx.moveTo(r, size * 0.50 + arcR);
+  ctx.lineTo(r, size * 0.72);
+  ctx.stroke();
+
+  // Base line
+  ctx.beginPath();
+  ctx.moveTo(r - arcR * 0.7, size * 0.72);
+  ctx.lineTo(r + arcR * 0.7, size * 0.72);
+  ctx.stroke();
+
+  document.body.appendChild(canvas);
+  const label = document.createElement("div");
+  label.style.cssText = "font:12px sans-serif;text-align:center;color:#666;margin-top:4px";
+  label.textContent = `${size}×${size}`;
+  const wrap = document.createElement("div");
+  wrap.style.display = "flex";
+  wrap.style.flexDirection = "column";
+  wrap.appendChild(canvas);
+  wrap.appendChild(label);
+  document.body.insertBefore(wrap, null);
+  canvas.remove(); // re-append inside wrap
+  wrap.insertBefore(canvas, label);
+}
+
+[16, 48, 128].forEach(makeIcon);
+</script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SpeakToYourInput</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="header">
+    <div class="logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
+        <path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3Z"/>
+        <path d="M19 11a1 1 0 1 0-2 0 5 5 0 0 1-10 0 1 1 0 1 0-2 0 7 7 0 0 0 6 6.92V20H9a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2h-2v-2.08A7 7 0 0 0 19 11Z"/>
+      </svg>
+      <span>SpeakToYourInput</span>
+    </div>
+
+    <label class="toggle" aria-label="Enable extension">
+      <input type="checkbox" id="enabledToggle" />
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <div id="statusBadge" class="status-badge status-off">Off</div>
+
+  <div id="serverStatus" class="server-status">
+    <span id="serverDot" class="dot dot-unknown"></span>
+    <span id="serverLabel">Checking server…</span>
+    <button id="checkBtn" class="btn-link">Check</button>
+  </div>
+
+  <hr />
+
+  <div class="settings">
+    <label class="setting-row">
+      <span>Server URL</span>
+      <input type="text" id="serverUrl" placeholder="http://localhost:8765" />
+    </label>
+
+    <label class="setting-row">
+      <span>Language <small>(auto if blank)</small></span>
+      <input type="text" id="language" placeholder="e.g. en, de, fr" maxlength="10" />
+    </label>
+
+    <label class="setting-row setting-row--inline">
+      <span>Append mode</span>
+      <input type="checkbox" id="appendMode" />
+    </label>
+  </div>
+
+  <div class="help">
+    <strong>How to use:</strong>
+    <ol>
+      <li>Start the STT server (<code>docker compose up</code>)</li>
+      <li>Toggle the extension <strong>On</strong></li>
+      <li>Click any text field on any page</li>
+      <li>Click the <span class="inline-mic">&#x1F3A4;</span> button to record</li>
+      <li>Click again to stop &amp; transcribe</li>
+    </ol>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

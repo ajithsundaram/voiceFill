@@ -1,0 +1,18 @@
+services:
+  stt-server:
+    build: .
+    ports:
+      - "8765:8765"
+    volumes:
+      # Cache downloaded model weights so they survive container restarts
+      - whisper_models:/root/.cache/huggingface
+    environment:
+      # Model size: tiny | base | small | medium | large-v2 | large-v3
+      # Larger = more accurate, slower first load. "base" is a good default.
+      - MODEL_SIZE=base
+      - DEVICE=cpu
+      - COMPUTE_TYPE=int8
+    restart: unless-stopped
+
+volumes:
+  whisper_models:
